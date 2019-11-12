@@ -1,10 +1,47 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, FlatList, ActivityIndicator, Button} from 'react-native';
+import {RootView, Card} from '../../components';
+import usePage from '../../hooks/usePage';
 
-const Sports = ({params}) => (
-  <View>
-    <Text>Sports</Text>
-  </View>
-);
+export const Sports = ({params}) => {
+  const [
+    data,
+    isFetching,
+    isRefreshing,
+    noMoreData,
+    loadMoreData,
+    refreshData,
+  ] = usePage('sports');
 
-export default Sports;
+  const listFooter = () => {
+    if (!noMoreData) {
+      return <ActivityIndicator style={{color: '#000'}} />;
+    } else {
+      return <Button title="refresh" onPress={() => refreshData()}></Button>;
+    }
+  };
+
+  return (
+    <RootView>
+      <FlatList
+        data={data}
+        ListFooterComponent={isRefreshing ? null : listFooter}
+        maxToRenderPerBatch={1}
+        onEndReachedThreshold={0.1}
+        onEndReached={() => {
+          loadMoreData();
+        }}
+        refreshing={isFetching}
+        onRefresh={() => {
+          console.log('onRefresh');
+          refreshData();
+        }}
+        renderItem={({item}) => (
+          <Card>
+            <Text>{item.title}</Text>
+          </Card>
+        )}
+      />
+    </RootView>
+  );
+};
