@@ -79,9 +79,12 @@ const HomeScreen = ({navigation}) => {
         <FlatList
           data={LatestNewsData}
           renderItem={({item}) => (
-            <Card>
-              <Text>{item.title}</Text>
-            </Card>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Detail', {url: item.url})}>
+              <Card>
+                <Text>{item.title}</Text>
+              </Card>
+            </TouchableOpacity>
           )}
         />
       </ScrollView>

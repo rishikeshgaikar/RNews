@@ -1,11 +1,14 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import {WebView} from 'react-native-webview';
+import {RootView} from '../components';
 
-const DetailScreen = ({params}) => {
+const DetailScreen = ({navigation}) => {
+  const url = navigation.getParam('url');
   return (
-    <View>
-      <Text>DetailScreen</Text>
-    </View>
+    <RootView>
+      <WebView source={{uri: url}} />
+    </RootView>
   );
 };
 
