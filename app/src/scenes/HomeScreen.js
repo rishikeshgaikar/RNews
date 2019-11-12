@@ -65,7 +65,8 @@ const HomeScreen = ({navigation}) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => (
-            <TouchableOpacity onPress={() => navigation.navigate('List')}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(item.NavigateTo)}>
               <Card>
                 <Text>{item.title}</Text>
                 <Image source={item.image}></Image>

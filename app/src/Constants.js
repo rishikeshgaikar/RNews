@@ -25,9 +25,9 @@ export const months = [
 ];
 
 export const categories = [
-  {title: 'Technology', image: R.images.science},
-  {title: 'Science', image: R.images.science},
-  {title: 'Sports', image: R.images.science},
-  {title: 'Business', image: R.images.science},
-  {title: 'General', image: R.images.science},
+  {title: 'Technology', NavigateTo: 'Technology', image: R.images.science},
+  {title: 'Science', NavigateTo: 'Science', image: R.images.science},
+  {title: 'Sports', NavigateTo: 'Sports', image: R.images.science},
+  {title: 'Business', NavigateTo: 'Business', image: R.images.science},
+  {title: 'General', NavigateTo: 'General', image: R.images.science},
 ];
