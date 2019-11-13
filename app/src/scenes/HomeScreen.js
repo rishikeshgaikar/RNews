@@ -7,17 +7,26 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import {Card, RootView} from '../components';
+import {
+  Card,
+  RootView,
+  ListItem,
+  TopHeadlineListItem,
+  Heading,
+  TopCategories,
+} from '../components';
 import {days, months, categories} from '../Constants';
 import TopHeadlines from '../api/TopHeadlines';
+import Carousel from 'react-native-snap-carousel';
 
 const HomeScreen = ({navigation}) => {
   const [date, setDate] = useState();
-  const [HedlineData, setHeadlineData] = useState();
+  const [HeadlineData, setHeadlineData] = useState();
   const [LatestNewsData, setLatestNewsData] = useState();
   useEffect(() => {
     getCurrentDate();
     getHomeData();
+    console.log(date);
   }, []);
 
   const getHomeData = () => {
@@ -27,7 +36,13 @@ const HomeScreen = ({navigation}) => {
         if (result.status == 200) {
           console.log(result.data.articles);
           const articles = result.data.articles;
-          setHeadlineData(articles.slice(0, 4));
+          let HeadlineArticles = [];
+          for (let i = 0; i < 10; i++) {
+            if (articles[i].urlToImage != null) {
+              HeadlineArticles.push(articles[i]);
+            }
+          }
+          setHeadlineData(HeadlineArticles.slice(0, 5));
           setLatestNewsData(articles.slice(5));
         }
       })
@@ -40,51 +55,40 @@ const HomeScreen = ({navigation}) => {
     var date = new Date().getDate();
     var day = new Date().getDay();
     var month = new Date().getMonth();
-    var finalDate = '' + days[day] + '' + months[month] + '' + date;
+    var finalDate = '' + days[day] + ', ' + months[month] + ' ' + date;
     setDate(finalDate);
   };
 
   return (
     <RootView>
       <ScrollView>
-        <Text>{date}</Text>
-        <FlatList
-          data={HedlineData}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
+        <Heading text={date} />
+        <Carousel
+          data={HeadlineData}
           renderItem={({item}) => (
-            <Card>
-              <Image source={{uri: item.urlToImage}}></Image>
-              <Text>{item.title}</Text>
-            </Card>
+            <TopHeadlineListItem
+              title={item.title}
+              image={item.urlToImage}
+              onPress={() => navigation.navigate('Detail', {url: item.url})}
+            />
           )}
-        />
-        <Text>Top Categories</Text>
-        <FlatList
-          data={categories}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate(item.NavigateTo)}>
-              <Card>
-                <Text>{item.title}</Text>
-                <Image source={item.image}></Image>
-              </Card>
-            </TouchableOpacity>
-          )}
+          sliderWidth={400}
+          itemWidth={200}
+          loop={true}
         />
 
-        <Text>Latest News</Text>
+        <Heading text={'Top Categories'} />
+        <TopCategories nav={navigation} />
+
+        <Heading text={'Latest News'} />
         <FlatList
           data={LatestNewsData}
           renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Detail', {url: item.url})}>
-              <Card>
-                <Text>{item.title}</Text>
-              </Card>
-            </TouchableOpacity>
+            <ListItem
+              title={item.title}
+              image={item.urlToImage}
+              onPress={() => navigation.navigate('Detail', {url: item.url})}
+            />
           )}
         />
       </ScrollView>

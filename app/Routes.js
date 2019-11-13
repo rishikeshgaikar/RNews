@@ -10,13 +10,27 @@ import TabContainer from './TopTabs';
 
 const MainNavigator = createStackNavigator(
   {
-    Home: {screen: HomeScreen},
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        header: null,
+      },
+    },
     Detail: {screen: DetailScreen},
     List: {screen: ListScreen},
     Settings: {screen: SettingScreen},
-    TabScreen: {screen: TabContainer},
+    TabScreen: {
+      screen: TabContainer,
+      navigationOptions: {
+        headerTitle: 'Categories',
+      },
+    },
   },
-  // {headerMode: 'none'},
+  {
+    defaultNavigationOptions: {
+      headerBackTitle: null,
+    },
+  },
 );
 
 const RootConatiner = createAppContainer(MainNavigator);

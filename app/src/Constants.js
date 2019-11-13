@@ -25,9 +25,34 @@ export const months = [
 ];
 
 export const categories = [
-  {title: 'Technology', NavigateTo: 'Technology', image: R.images.science},
-  {title: 'Science', NavigateTo: 'Science', image: R.images.science},
-  {title: 'Sports', NavigateTo: 'Sports', image: R.images.science},
-  {title: 'Business', NavigateTo: 'Business', image: R.images.science},
-  {title: 'General', NavigateTo: 'General', image: R.images.science},
+  {
+    title: 'Technology',
+    NavigateTo: 'Technology',
+    image: R.images.science,
+    color: R.colors.category_1,
+  },
+  {
+    title: 'Science',
+    NavigateTo: 'Science',
+    image: R.images.science,
+    color: R.colors.category_2,
+  },
+  {
+    title: 'Sports',
+    NavigateTo: 'Sports',
+    image: R.images.science,
+    color: R.colors.category_3,
+  },
+  {
+    title: 'Business',
+    NavigateTo: 'Business',
+    image: R.images.science,
+    color: R.colors.category_4,
+  },
+  {
+    title: 'General',
+    NavigateTo: 'General',
+    image: R.images.science,
+    color: R.colors.category_5,
+  },
 ];

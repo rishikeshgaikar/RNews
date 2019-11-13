@@ -1,10 +1,11 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, ActivityIndicator} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {RootView} from '../components';
 
 const DetailScreen = ({navigation}) => {
   const url = navigation.getParam('url');
+
   return (
     <RootView>
       <WebView source={{uri: url}} />

@@ -8,10 +8,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 5},
+    shadowOffset: {width: 5, height: 5},
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    backgroundColor: '#036675',
+    backgroundColor: '#F5FFFA',
   },
 });
 
