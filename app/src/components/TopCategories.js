@@ -36,6 +36,7 @@ export const TopCategories = ({nav}) => {
           </View>
         </TouchableOpacity>
       )}
+      keyExtractor={(item, index) => item.title}
     />
   );
 };

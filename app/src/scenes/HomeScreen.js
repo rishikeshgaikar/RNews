@@ -1,28 +1,22 @@
 import React, {useEffect, useState} from 'react';
+import {ScrollView, View, FlatList, ActivityIndicator} from 'react-native';
 import {
-  Text,
-  TouchableOpacity,
-  Image,
-  View,
-  ScrollView,
-  FlatList,
-} from 'react-native';
-import {
-  Card,
   RootView,
   ListItem,
   TopHeadlineListItem,
   Heading,
   TopCategories,
+  ImageCarousel,
 } from '../components';
-import {days, months, categories} from '../Constants';
+import {days, months} from '../Constants';
 import TopHeadlines from '../api/TopHeadlines';
-import Carousel from 'react-native-snap-carousel';
+import R from '../R';
 
 const HomeScreen = ({navigation}) => {
   const [date, setDate] = useState();
   const [HeadlineData, setHeadlineData] = useState();
   const [LatestNewsData, setLatestNewsData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     getCurrentDate();
     getHomeData();
@@ -44,6 +38,7 @@ const HomeScreen = ({navigation}) => {
           }
           setHeadlineData(HeadlineArticles.slice(0, 5));
           setLatestNewsData(articles.slice(5));
+          setIsLoading(false);
         }
       })
       .catch(error => {
@@ -59,11 +54,13 @@ const HomeScreen = ({navigation}) => {
     setDate(finalDate);
   };
 
-  return (
-    <RootView>
-      <ScrollView>
+  const Listheader = () => {
+    return (
+      <React.Fragment>
         <Heading text={date} />
-        <Carousel
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
           data={HeadlineData}
           renderItem={({item}) => (
             <TopHeadlineListItem
@@ -72,16 +69,26 @@ const HomeScreen = ({navigation}) => {
               onPress={() => navigation.navigate('Detail', {url: item.url})}
             />
           )}
-          sliderWidth={400}
-          itemWidth={200}
-          loop={true}
+          keyExtractor={(item, index) => item.title}
         />
-
         <Heading text={'Top Categories'} />
         <TopCategories nav={navigation} />
-
         <Heading text={'Latest News'} />
+      </React.Fragment>
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  } else {
+    return (
+      <RootView>
         <FlatList
+          ListHeaderComponent={Listheader}
           data={LatestNewsData}
           renderItem={({item}) => (
             <ListItem
@@ -90,10 +97,11 @@ const HomeScreen = ({navigation}) => {
               onPress={() => navigation.navigate('Detail', {url: item.url})}
             />
           )}
+          keyExtractor={(item, index) => item.title}
         />
-      </ScrollView>
-    </RootView>
-  );
+      </RootView>
+    );
+  }
 };
 
 export default HomeScreen;

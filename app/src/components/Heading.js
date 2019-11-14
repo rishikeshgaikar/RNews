@@ -1,6 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 
-export const Heading = ({text}) => (
-  <Text style={{padding: 10, fontSize: 20, fontWeight: 'bold'}}>{text}</Text>
-);
+const styles = StyleSheet.create({
+  heading: {padding: 10, fontSize: 20, fontWeight: 'bold'},
+});
+
+export const Heading = ({text}) => <Text style={styles.heading}>{text}</Text>;

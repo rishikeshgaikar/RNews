@@ -1,6 +1,12 @@
 import React from 'react';
-import {Text, TouchableOpacity, Image, View} from 'react-native';
+import {Text, TouchableOpacity, Image, View, StyleSheet} from 'react-native';
 import {Card} from '../components';
+
+const styles = StyleSheet.create({
+  image: {width: 100, height: 100, flex: 1, borderRadius: 10},
+  text: {flex: 2, flexWrap: 'wrap', fontSize: 16, marginLeft: 10},
+  view: {flex: 2, flexDirection: 'row'},
+});
 
 export const ListItem = ({onPress, title, image}) => {
   let img =
@@ -8,14 +14,11 @@ export const ListItem = ({onPress, title, image}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <Card>
-        <View style={{flex: 2, flexDirection: 'row'}}>
+        <View style={styles.view}>
           <Image
-            style={{width: 100, height: 100, flex: 1, borderRadius: 10}}
+            style={styles.image}
             source={{uri: image === null ? img : image}}></Image>
-          <Text
-            style={{flex: 2, flexWrap: 'wrap', fontSize: 16, marginLeft: 10}}>
-            {title}
-          </Text>
+          <Text style={styles.text}>{title}</Text>
         </View>
       </Card>
     </TouchableOpacity>

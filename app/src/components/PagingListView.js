@@ -40,6 +40,7 @@ export const PagingListView = ({nav, category}) => {
           onPress={() => nav.navigate('Detail', {url: item.url})}
         />
       )}
+      keyExtractor={(item, index) => item.title}
     />
   );
 };

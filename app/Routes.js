@@ -17,12 +17,10 @@ const MainNavigator = createStackNavigator(
       },
     },
     Detail: {screen: DetailScreen},
-    List: {screen: ListScreen},
-    Settings: {screen: SettingScreen},
     TabScreen: {
       screen: TabContainer,
       navigationOptions: {
-        headerTitle: 'Categories',
+        headerTitle: 'Top Categories',
       },
     },
   },
